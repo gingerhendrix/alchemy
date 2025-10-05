@@ -1,14 +1,12 @@
-import { env } from "cloudflare:workers";
 import type { worker } from "../alchemy.run.ts";
 
 export default {
-  async fetch(request: Request, _env: typeof worker.Env) {
+  async fetch(request: Request, env: typeof worker.Env) {
     const dynamicWorker = env.LOADER.get(
       `dynamic-${Math.random()}`,
       async () => {
         return {
           compatibilityDate: "2025-06-01",
-          compatibilityFlags: ["nodejs_compat"],
           mainModule: "index.js",
           modules: {
             "index.js": `

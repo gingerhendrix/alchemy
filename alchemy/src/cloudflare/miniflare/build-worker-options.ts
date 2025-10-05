@@ -309,9 +309,7 @@ export const buildWorkerOptions = async (
         break;
       }
       case "worker_loader": {
-        (options.workerLoaders ??= {})[key] = {
-          name: key,
-        };
+        (options.workerLoaders ??= {})[key] = {};
         break;
       }
       case "workflow": {

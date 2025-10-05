@@ -347,16 +347,15 @@ Then use the loader to create workers on-demand:
 
 ```ts
 // ./src/worker.ts
-import { env } from "cloudflare:workers";
+import type { worker } from "../alchemy.run.ts";
 
 export default {
-  async fetch(request) {
+  async fetch(request: Request, env: typeof worker.Env) {
     const dynamicWorker = env.LOADER.get(
       'my-dynamic-worker',
       async () => ({
-        compatibilityDate: '2025-06-01',
-        compatibilityFlags: ['nodejs_compat'],
-        mainModule: 'index.js',
+        compatibilityDate: "2025-06-01",
+        mainModule: "index.js",
         modules: {
           'index.js': `
             export default {
