@@ -62,7 +62,6 @@ describe("WorkerLoader", () => {
       expect(worker.bindings?.LOADER).toBeDefined();
       expect(worker.url).toBeTruthy();
 
-      // Test that the worker can use the WorkerLoader binding
       const response = await fetchAndExpectOK(worker.url!);
       const text = await response.text();
       expect(text).toEqual("Hello from dynamic worker!");
