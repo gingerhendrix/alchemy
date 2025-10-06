@@ -22,7 +22,6 @@ describe("WorkerLoader", () => {
 
     let worker: Worker | undefined;
     try {
-      // Create a worker with a WorkerLoader binding
       worker = await Worker(workerName, {
         name: workerName,
         script: `
