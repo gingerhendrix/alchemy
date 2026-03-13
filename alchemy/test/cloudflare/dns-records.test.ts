@@ -150,7 +150,7 @@ describe.sequential("DnsRecords Resource", async () => {
     }
   });
 
-  test("delete: false preserves records on destroy", async (scope) => {
+  test("delete false preserves records on destroy", async (scope) => {
     let dnsRecords;
     try {
       // Create records with delete: false
