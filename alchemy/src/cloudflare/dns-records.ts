@@ -195,10 +195,7 @@ export const DnsRecords = Resource(
                 );
               }
             } catch (error) {
-              logger.error(
-                `Error deleting DNS record ${record.name}:`,
-                error,
-              );
+              logger.error(`Error deleting DNS record ${record.name}:`, error);
             }
           }),
         );
