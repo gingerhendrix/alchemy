@@ -144,16 +144,20 @@ async function _apply<Out extends ResourceAttributes>(
       ) {
         // Remove timestamps from props before comparing, as they can cause non-deterministic differences
         const stripNonDeterministic = (obj: any): any => {
-          if (!obj || typeof obj !== 'object') return obj;
+          if (!obj || typeof obj !== "object") return obj;
           if (Array.isArray(obj)) return obj.map(stripNonDeterministic);
           const { updatedAt, createdAt, ...rest } = obj;
           return Object.fromEntries(
-            Object.entries(rest).map(([k, v]) => [k, stripNonDeterministic(v)])
+            Object.entries(rest).map(([k, v]) => [k, stripNonDeterministic(v)]),
           );
         };
-        const oldProps = await serialize(scope, stripNonDeterministic(state.props), {
-          encrypt: false,
-        });
+        const oldProps = await serialize(
+          scope,
+          stripNonDeterministic(state.props),
+          {
+            encrypt: false,
+          },
+        );
         const newProps = await serialize(scope, stripNonDeterministic(props), {
           encrypt: false,
         });
