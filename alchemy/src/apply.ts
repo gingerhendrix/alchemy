@@ -142,10 +142,19 @@ async function _apply<Out extends ResourceAttributes>(
       async function inputsAreEqual(
         state: State<string, ResourceProps | undefined, Resource>,
       ) {
-        const oldProps = await serialize(scope, state.props, {
+        // Remove timestamps from props before comparing, as they can cause non-deterministic differences
+        const stripNonDeterministic = (obj: any): any => {
+          if (!obj || typeof obj !== 'object') return obj;
+          if (Array.isArray(obj)) return obj.map(stripNonDeterministic);
+          const { updatedAt, createdAt, ...rest } = obj;
+          return Object.fromEntries(
+            Object.entries(rest).map(([k, v]) => [k, stripNonDeterministic(v)])
+          );
+        };
+        const oldProps = await serialize(scope, stripNonDeterministic(state.props), {
           encrypt: false,
         });
-        const newProps = await serialize(scope, props, {
+        const newProps = await serialize(scope, stripNonDeterministic(props), {
           encrypt: false,
         });
         return JSON.stringify(oldProps) === JSON.stringify(newProps);

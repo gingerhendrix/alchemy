@@ -81,7 +81,7 @@ export const createDummyLogger = (): LoggerApi => {
 export const createFallbackLogger = (alchemyInfo: AlchemyInfo): LoggerApi => {
   if (alchemyInfo.phase !== "read") {
     console.log(dedent`
-      ${colorize("Alchemy", "cyanBright")} (v${packageJson.version})
+      ${colorize("Alchemy", "cyanBright")} (v${packageJson.version}) [local]
       App: ${alchemyInfo.appName}
       Phase: ${alchemyInfo.phase}
       Stage: ${alchemyInfo.stage}
